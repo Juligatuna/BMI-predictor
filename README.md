@@ -26,34 +26,35 @@ BMI_Model/
 │ └── index.html # HTML frontend
 └── README.md # This file
 
+
 ## ⚙️ How to Run Locally
 
-1. Clone the repo  
+ 1. Clone the repo  
    ```bash
    git clone https://github.com/Juligatuna/BMI-predictor.git
    cd BMI-predictor
 
-# Create a virtual environment (recommended)
+## Create a virtual environment (recommended)
 
 python -m venv venv
 Activate the virtual environment:
 
-# Windows:
+## Windows:
 
 venv\Scripts\activate
 
-# macOS/Linux:
+## macOS/Linux:
 
 source venv/bin/activate
 
-# Install dependencies
+## Install dependencies
 
 pip install -r requirements.txt
 
-# Run the Flask app
+## Run the Flask app
 
 python app.py
 
-# Open your browser and go to:
+## Open your browser and go to:
 
 http://127.0.0.1:5000
