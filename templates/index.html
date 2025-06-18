@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>BMI Category Predictor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #a8e063, #56ab2f);
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    form {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 12px 24px rgba(0, 100, 0, 0.3);
+      width: 100%;
+      max-width: 440px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #2e7d32;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1.2rem;
+      font-weight: 600;
+      color: #1b5e20;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 1rem;
+      margin-top: 0.6rem;
+      border: 2px solid #a5d6a7;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      background-color: #f1f8e9;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      appearance: none; /* normalize select field */
+    }
+
+    input:focus, select:focus {
+      border-color: #66bb6a;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 1rem;
+      margin-top: 2rem;
+      background-color: #388e3c;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #2e7d32;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 1.8rem;
+      font-size: 1.2rem;
+      color: #1b5e20;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <form id="bmiForm">
+    <h2>BMI Category Predictor</h2>
+
+    <label for="gender">Gender</label>
+    <select id="gender" name="Gender" required>
+      <option value="" disabled selected>Select gender</option>
+      <option value="1">Male</option>
+      <option value="0">Female</option>
+    </select>
+
+    <label for="height">Height (cm)</label>
+    <input type="number" id="height" name="Height" step="0.1" required>
+
+    <label for="weight">Weight (kg)</label>
+    <input type="number" id="weight" name="Weight" step="0.1" required>
+
+    <button type="button" onclick="submitForm()">Predict</button>
+
+    <div id="result"></div>
+  </form>
+
+  <script>
+    function submitForm() {
+      const gender = parseInt(document.getElementById("gender").value);
+      const height = parseFloat(document.getElementById("height").value);
+      const weight = parseFloat(document.getElementById("weight").value);
+
+      const payload = {
+        "Gender": gender,
+        "Height": height,
+        "Weight": weight
+      };
+
+      fetch("/predict", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.prediction) {
+          document.getElementById("result").textContent = "Predicted BMI Category: " + data.prediction;
+        } else {
+          document.getElementById("result").textContent = "Error: " + (data.error || "Unknown error");
+        }
+      })
+      .catch(error => {
+        document.getElementById("result").textContent = "Error: " + error.message;
+      });
+    }
+  </script>
+
+</body>
+</html>
