@@ -1,6 +1,6 @@
 # 🧮 BMI Weight Status Predictor
 
-This is a simple **Flask web application** that predicts a person's weight status (e.g., Normal, Overweight, Obese) using a machine learning model. Users input their **gender**, **height (cm)**, and **weight (lbs)** through a browser interface.
+This is a simple **Flask web application** that predicts a person's weight status (e.g., Normal, Overweight, Obese) using a machine learning model. Users input their **gender**, **height (cm)**, and **weight (kgs)** through a browser interface.
 
 ---
 
